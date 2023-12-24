@@ -12,9 +12,16 @@ import (
 	"net"
 	"os"
 	"os/exec"
+	"strconv"
 )
 
 func main() {
+	port := flag.Int("port", 1111, "port on which to listen")
+	if port == nil {
+		print("port required")
+		os.Exit(3)
+	}
+
 	path := flag.String("path", "", "path for shared resource executable")
 	if path == nil || *path == "" {
 		print("No path to resource")
@@ -31,7 +38,7 @@ func main() {
 	}
 
 	// If we can't listen, we must give up.
-	listener, listenError := net.Listen("tcp", "0.0.0.0:1111")
+	listener, listenError := net.Listen("tcp", "0.0.0.0:"+strconv.Itoa(*port))
 	if listenError != nil {
 		os.Exit(10)
 	}
