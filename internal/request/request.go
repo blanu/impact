@@ -1,8 +1,10 @@
 package request
 
-import "internal/response"
+import (
+	"github.com/blanu/radiowave"
+)
 
 type Request struct {
-	Payload      []byte
-	ReplyChannel chan response.Response
+	Message      radiowave.Message
+	ReplyChannel chan radiowave.Message
 }
